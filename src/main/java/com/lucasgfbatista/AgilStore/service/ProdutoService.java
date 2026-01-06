@@ -7,6 +7,8 @@ import com.lucasgfbatista.AgilStore.mapper.ProdutoMapper;
 import com.lucasgfbatista.AgilStore.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProdutoService {
 
@@ -21,7 +23,7 @@ public class ProdutoService {
     /* todo
 
     - [x] - Criar
-    - [ ] - Lista todos
+    - [x] - Lista todos
     - [ ] - Atualizar por id
     - [ ] - Deletar por id
     - [ ] - Buscar por id
@@ -38,5 +40,10 @@ public class ProdutoService {
         return produtoMapper.toResponse(produto);
     }
 
-    
+    public List<ProdutoResponseDTO> listarTodosProdutos() {
+        return produtoRepository.findAll()
+                .stream()
+                .map(produtoMapper::toResponse)
+                .toList();
+    }
 }
