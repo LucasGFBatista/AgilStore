@@ -28,8 +28,8 @@ public class ProdutoService {
     - [x] - Lista todos
     - [x] - Atualizar por id
     - [x] - Deletar por id
-    - [ ] - Buscar por id
-    - [ ] - Buscar por nome
+    - [x] - Buscar por id
+    - [x] - Buscar por nome
     * */
 
 
@@ -66,10 +66,29 @@ public class ProdutoService {
 
     }
 
-    public void deletarProduto(Long id){
-        if (!produtoRepository.existsById(id)){
+    public void deletarProduto(Long id) {
+        if (!produtoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Produto", "id", id);
         }
         produtoRepository.deleteById(id);
+    }
+
+    public ProdutoResponseDTO buscarProduto(Long id) {
+        Produto produto = produtoRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Produto", "id", id)
+                );
+
+        return produtoMapper.toResponse(produto);
+    }
+
+
+    public ProdutoResponseDTO buscarProduto(String nome) {
+        Produto produto = produtoRepository.findByNomeIgnoreCase(nome)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Produto", "id", nome)
+                );
+
+        return produtoMapper.toResponse(produto);
     }
 }
