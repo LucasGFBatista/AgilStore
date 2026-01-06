@@ -50,7 +50,7 @@ public class CategoriaService {
                 .toList();
     }
 
-    public CategoriaResponseDTO atualiarCategoria(Long id, CategoriaRequestDTO dto) {
+    public CategoriaResponseDTO atualizarCategoria(Long id, CategoriaRequestDTO dto) {
         Categoria categoria = categoriaRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Categoria", "id", id)
