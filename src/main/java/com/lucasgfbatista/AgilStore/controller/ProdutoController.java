@@ -1,6 +1,10 @@
 package com.lucasgfbatista.AgilStore.controller;
 
+import com.lucasgfbatista.AgilStore.dto.ProdutoRequestDTO;
+import com.lucasgfbatista.AgilStore.dto.ProdutoResponseDTO;
 import com.lucasgfbatista.AgilStore.service.ProdutoService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,11 +19,17 @@ public class ProdutoController {
     }
 
     /* todo
-     * - [ ] - POST - CRIAR
+     * - [x] - POST - CRIAR
      * - [ ] - GET - LISTAR TODOS
      * - [ ] - GET - BUSCAR POR ID
      * - [ ] - GET - BUSCAR POR NOME
      * - [ ] - PUT - ATUALIZAR POR ID
      * - [ ] - DELETE - DELETAR POR ID
      * */
+
+
+    @PostMapping
+    public ProdutoResponseDTO criarProduto(@RequestBody ProdutoRequestDTO dto){
+        return produtoService.criarProduto(dto);
+    }
 }
