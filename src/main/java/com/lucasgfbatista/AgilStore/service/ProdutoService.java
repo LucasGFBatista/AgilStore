@@ -6,15 +6,15 @@ import com.lucasgfbatista.AgilStore.dto.ProdutoResponseDTO;
 import com.lucasgfbatista.AgilStore.exception.ResourceNotFoundException;
 import com.lucasgfbatista.AgilStore.mapper.ProdutoMapper;
 import com.lucasgfbatista.AgilStore.repository.ProdutoRepository;
-import com.lucasgfbatista.AgilStore.util.ProdutoJsonUtil;
+import com.lucasgfbatista.AgilStore.util.JsonUtil;
 import org.springframework.stereotype.Service;
 
-import java.lang.module.ResolutionException;
 import java.util.List;
 
 @Service
 public class ProdutoService {
 
+    private static final String JSON_PRODUTOS = "produtos.json";
     private final ProdutoRepository produtoRepository;
     private final ProdutoMapper produtoMapper;
 
@@ -95,7 +95,7 @@ public class ProdutoService {
     }
 
     private void salvarBackupJson(){
-        List<Produto> todosProdutos = produtoRepository.findAll();
-        ProdutoJsonUtil.salvarEmJson(todosProdutos);
+        List<ProdutoResponseDTO> produtos = listarTodosProdutos();
+        JsonUtil.salvar(JSON_PRODUTOS, produtos );
     }
 }
