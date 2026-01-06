@@ -6,6 +6,7 @@ import com.lucasgfbatista.AgilStore.dto.CategoriaResponseDTO;
 import com.lucasgfbatista.AgilStore.exception.ResourceNotFoundException;
 import com.lucasgfbatista.AgilStore.mapper.CategoriaMapper;
 import com.lucasgfbatista.AgilStore.repository.CategoriaRepository;
+import com.lucasgfbatista.AgilStore.util.JsonUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
+    private static final String JSON_CATEGORIAS = "categorias.json";
     private final CategoriaRepository categoriaRepository;
     private final CategoriaMapper categoriaMapper;
 
@@ -26,9 +28,9 @@ public class CategoriaService {
     - [x] - Criar
     - [x] - Lista todos
     - [x] - Atualizar por id
-    - [ ] - Deletar por id
-    - [ ] - Buscar por id
-    - [ ] - Buscar por nome
+    - [x] - Deletar por id
+    - [x] - Buscar por id
+    - [x] - Buscar por nome
     * */
 
 
@@ -58,6 +60,7 @@ public class CategoriaService {
 
         categoriaRepository.save(categoria);
 
+        salvarCategoriasJson();
         return categoriaMapper.toResponse(categoria);
 
     }
@@ -67,6 +70,7 @@ public class CategoriaService {
             throw new ResourceNotFoundException("Categoria", "id", id);
         }
         categoriaRepository.deleteById(id);
+        salvarCategoriasJson();
     }
 
     public CategoriaResponseDTO buscarCategoria(Long id) {
@@ -86,6 +90,14 @@ public class CategoriaService {
                 );
 
         return categoriaMapper.toResponse(categoria);
+    }
+
+
+    // Trabalhar com Json
+
+    private void salvarCategoriasJson() {
+        List<CategoriaResponseDTO> categorias = listarTodosCategorias();
+        JsonUtil.salvar(JSON_CATEGORIAS, categorias);
     }
 
 }
