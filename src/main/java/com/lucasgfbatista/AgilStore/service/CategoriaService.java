@@ -3,9 +3,12 @@ package com.lucasgfbatista.AgilStore.service;
 import com.lucasgfbatista.AgilStore.domain.Categoria;
 import com.lucasgfbatista.AgilStore.dto.CategoriaRequestDTO;
 import com.lucasgfbatista.AgilStore.dto.CategoriaResponseDTO;
+import com.lucasgfbatista.AgilStore.dto.CategoriaResponseDTO;
 import com.lucasgfbatista.AgilStore.mapper.CategoriaMapper;
 import com.lucasgfbatista.AgilStore.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CategoriaService {
@@ -21,7 +24,7 @@ public class CategoriaService {
     /* todo
 
     - [x] - Criar
-    - [ ] - Lista todos
+    - [x] - Lista todos
     - [ ] - Atualizar por id
     - [ ] - Deletar por id
     - [ ] - Buscar por id
@@ -36,5 +39,12 @@ public class CategoriaService {
         categoriaRepository.save(categoria);
 
         return categoriaMapper.toResponse(categoria);
+    }
+
+    public List<CategoriaResponseDTO> listarTodosCategorias() {
+        return categoriaRepository.findAll()
+                .stream()
+                .map(categoriaMapper::toResponse)
+                .toList();
     }
 }
