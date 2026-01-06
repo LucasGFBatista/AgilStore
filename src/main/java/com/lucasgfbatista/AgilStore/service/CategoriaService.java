@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class CategoriaService {
 
-    private static final String JSON_CATEGORIAS = "categorias.json";
+    private static final String JSON_CATEGORIAS = "json_projeto/categorias.json";
     private final CategoriaRepository categoriaRepository;
     private final CategoriaMapper categoriaMapper;
 

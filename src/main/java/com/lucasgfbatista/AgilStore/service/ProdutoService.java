@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class ProdutoService {
 
-    private static final String JSON_PRODUTOS = "produtos.json";
+    private static final String JSON_PRODUTOS = "json_projeto/produtos.json";
     private final ProdutoRepository produtoRepository;
     private final ProdutoMapper produtoMapper;
 
