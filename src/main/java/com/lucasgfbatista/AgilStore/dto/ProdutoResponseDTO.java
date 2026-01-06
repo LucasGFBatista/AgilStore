@@ -1,4 +1,12 @@
 package com.lucasgfbatista.AgilStore.dto;
 
-public class ProdutoResponseDTO {
+import java.math.BigDecimal;
+
+public record ProdutoResponseDTO(
+        long id,
+        String nome,
+        long categoriaId,
+        Integer qntEstoque,
+        BigDecimal preco
+) {
 }

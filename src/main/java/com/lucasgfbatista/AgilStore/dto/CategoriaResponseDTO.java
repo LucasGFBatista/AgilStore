@@ -1,6 +1,6 @@
 package com.lucasgfbatista.AgilStore.dto;
 
-public record CategoriaReponseDTO (
+public record CategoriaResponseDTO(
         long id,
         String name
 ) {
