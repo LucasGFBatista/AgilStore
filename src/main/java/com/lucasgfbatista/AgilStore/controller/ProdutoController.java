@@ -22,8 +22,8 @@ public class ProdutoController {
      * - [x] - GET - LISTAR TODOS
      * - [x] - GET - BUSCAR POR ID
      * - [x] - GET - BUSCAR POR NOME
-     * - [ ] - PUT - ATUALIZAR POR ID
-     * - [ ] - DELETE - DELETAR POR ID
+     * - [x] - PUT - ATUALIZAR POR ID
+     * - [x] - DELETE - DELETAR POR ID
      * */
 
 
@@ -57,5 +57,9 @@ public class ProdutoController {
 
     }
 
-    
+    @DeleteMapping("/{id}")
+    public void deletarProduto(@PathVariable Long id) {
+        produtoService.deletarProduto(id);
+    }
+
 }
