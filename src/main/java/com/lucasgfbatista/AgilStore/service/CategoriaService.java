@@ -69,4 +69,23 @@ public class CategoriaService {
         categoriaRepository.deleteById(id);
     }
 
+    public CategoriaResponseDTO buscarCategoria(Long id) {
+        Categoria categoria = categoriaRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Categoria", "id", id)
+                );
+
+        return categoriaMapper.toResponse(categoria);
+    }
+
+
+    public CategoriaResponseDTO buscarCategoria(String nome) {
+        Categoria categoria = categoriaRepository.findByNomeIgnoreCase(nome)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Categoria", "id", nome)
+                );
+
+        return categoriaMapper.toResponse(categoria);
+    }
+
 }
