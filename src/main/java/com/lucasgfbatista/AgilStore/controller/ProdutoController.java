@@ -13,4 +13,13 @@ public class ProdutoController {
     public ProdutoController(ProdutoService produtoService) {
         this.produtoService = produtoService;
     }
+
+    /* todo
+     * - [ ] - POST - CRIAR
+     * - [ ] - GET - LISTAR TODOS
+     * - [ ] - GET - BUSCAR POR ID
+     * - [ ] - GET - BUSCAR POR NOME
+     * - [ ] - PUT - ATUALIZAR POR ID
+     * - [ ] - DELETE - DELETAR POR ID
+     * */
 }
