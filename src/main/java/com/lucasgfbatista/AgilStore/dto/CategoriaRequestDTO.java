@@ -1,4 +1,6 @@
 package com.lucasgfbatista.AgilStore.dto;
 
-public class CategoriaRequestDTO {
+public record CategoriaRequestDTO(
+        String name
+) {
 }
