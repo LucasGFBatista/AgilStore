@@ -27,7 +27,7 @@ public class ProdutoService {
     - [x] - Criar
     - [x] - Lista todos
     - [x] - Atualizar por id
-    - [ ] - Deletar por id
+    - [x] - Deletar por id
     - [ ] - Buscar por id
     - [ ] - Buscar por nome
     * */
@@ -64,5 +64,12 @@ public class ProdutoService {
 
         return produtoMapper.toResponse(produto);
 
+    }
+
+    public void deletarProduto(Long id){
+        if (!produtoRepository.existsById(id)){
+            throw new ResourceNotFoundException("Produto", "id", id);
+        }
+        produtoRepository.deleteById(id);
     }
 }
