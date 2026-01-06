@@ -1,5 +1,8 @@
 package com.lucasgfbatista.AgilStore.service;
 
+import com.lucasgfbatista.AgilStore.domain.Categoria;
+import com.lucasgfbatista.AgilStore.dto.CategoriaRequestDTO;
+import com.lucasgfbatista.AgilStore.dto.CategoriaResponseDTO;
 import com.lucasgfbatista.AgilStore.mapper.CategoriaMapper;
 import com.lucasgfbatista.AgilStore.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,7 @@ public class CategoriaService {
 
     /* todo
 
-    - [ ] - Criar
+    - [x] - Criar
     - [ ] - Lista todos
     - [ ] - Atualizar por id
     - [ ] - Deletar por id
@@ -25,4 +28,13 @@ public class CategoriaService {
     - [ ] - Buscar por nome
     * */
 
+
+    public CategoriaResponseDTO criarCategoria(CategoriaRequestDTO dto) {
+
+        Categoria categoria = categoriaMapper.toEntity(dto);
+
+        categoriaRepository.save(categoria);
+
+        return categoriaMapper.toResponse(categoria);
+    }
 }
