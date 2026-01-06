@@ -3,7 +3,7 @@ package com.lucasgfbatista.AgilStore.service;
 import com.lucasgfbatista.AgilStore.domain.Categoria;
 import com.lucasgfbatista.AgilStore.dto.CategoriaRequestDTO;
 import com.lucasgfbatista.AgilStore.dto.CategoriaResponseDTO;
-import com.lucasgfbatista.AgilStore.dto.CategoriaResponseDTO;
+import com.lucasgfbatista.AgilStore.exception.ResourceNotFoundException;
 import com.lucasgfbatista.AgilStore.mapper.CategoriaMapper;
 import com.lucasgfbatista.AgilStore.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class CategoriaService {
 
     - [x] - Criar
     - [x] - Lista todos
-    - [ ] - Atualizar por id
+    - [x] - Atualizar por id
     - [ ] - Deletar por id
     - [ ] - Buscar por id
     - [ ] - Buscar por nome
@@ -47,4 +47,19 @@ public class CategoriaService {
                 .map(categoriaMapper::toResponse)
                 .toList();
     }
+
+    public CategoriaResponseDTO atualiarCategoria(Long id, CategoriaRequestDTO dto) {
+        Categoria categoria = categoriaRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Categoria", "id", id)
+                );
+
+        categoria.setNome(dto.nome());
+
+        categoriaRepository.save(categoria);
+
+        return categoriaMapper.toResponse(categoria);
+
+    }
+
 }
