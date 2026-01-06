@@ -80,7 +80,7 @@
 		<artifactId>spring-boot-starter-flyway</artifactId>
 		<version>4.0.0-RC1</version> <!-- Use the latest stable version when available -->
 	</dependency>
-		
+
 	<dependency>
 		<groupId>org.flywaydb</groupId>
 		<artifactId>flyway-core</artifactId>
