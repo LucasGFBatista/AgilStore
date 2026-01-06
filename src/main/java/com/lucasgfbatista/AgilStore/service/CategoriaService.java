@@ -1,11 +1,21 @@
 package com.lucasgfbatista.AgilStore.service;
 
+import com.lucasgfbatista.AgilStore.mapper.CategoriaMapper;
+import com.lucasgfbatista.AgilStore.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CategoriaService {
 
-        /* todo
+    private final CategoriaRepository categoriaRepository;
+    private final CategoriaMapper categoriaMapper;
+
+    public CategoriaService(CategoriaRepository categoriaRepository, CategoriaMapper categoriaMapper) {
+        this.categoriaRepository = categoriaRepository;
+        this.categoriaMapper = categoriaMapper;
+    }
+
+    /* todo
 
     - [ ] - Criar
     - [ ] - Lista todos
