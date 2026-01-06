@@ -5,6 +5,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProdutoJsonUtil {
@@ -19,4 +20,18 @@ public class ProdutoJsonUtil {
             e.printStackTrace();
         }
     }
+
+    public static List<Produto> carregarDoJson() {
+        try {
+            if (!arquivo.exists()) return List.of();
+            Produto[] produtos = mapper.readValue(arquivo, Produto[].class);
+
+            return Arrays.asList(produtos);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+            return List.of();
+        }
+    }
+
 }
