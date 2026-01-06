@@ -24,5 +24,18 @@ public class JsonToDatabaseInitializer<T, E> implements ApplicationRunner {
         this.mapper = mapper;
     }
 
-   
+    @Override
+    public void run(ApplicationArguments args) {
+
+        // Se o banco já tiver dados, não duplicar
+        if (repository.count() > 0) return;
+
+        List<T> dados = jsonStorageService.carregar();
+        if (dados.isEmpty()) return;
+
+        for (T dto : dados) {
+            E entity = mapper.apply(dto);
+            repository.save(entity);
+        }
+    }
 }
