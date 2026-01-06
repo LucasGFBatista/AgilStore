@@ -38,13 +38,24 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ProdutoResponseDTO buscarProduto(@PathVariable Long id){
+    public ProdutoResponseDTO buscarProduto(@PathVariable Long id) {
         return produtoService.buscarProduto(id);
     }
 
-    @GetMapping("/{nome")
-    public ProdutoResponseDTO buscarProduto(@PathVariable String nome{
+    @GetMapping("/{nome}")
+    public ProdutoResponseDTO buscarProduto(@PathVariable String nome) {
         return produtoService.buscarProduto(nome);
     }
 
+
+    @PutMapping("/{id}")
+    public ProdutoResponseDTO atualizarProduto(
+            @PathVariable Long id,
+            @RequestBody ProdutoRequestDTO dto) {
+
+        return produtoService.atualiarProduto(id, dto);
+
+    }
+
+    
 }
