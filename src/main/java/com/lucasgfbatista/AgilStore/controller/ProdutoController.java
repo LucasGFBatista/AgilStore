@@ -53,7 +53,7 @@ public class ProdutoController {
             @PathVariable Long id,
             @RequestBody ProdutoRequestDTO dto) {
 
-        return produtoService.atualiarProduto(id, dto);
+        return produtoService.atualizarProduto(id, dto);
 
     }
 

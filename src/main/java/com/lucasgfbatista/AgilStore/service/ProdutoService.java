@@ -6,6 +6,7 @@ import com.lucasgfbatista.AgilStore.dto.ProdutoResponseDTO;
 import com.lucasgfbatista.AgilStore.exception.ResourceNotFoundException;
 import com.lucasgfbatista.AgilStore.mapper.ProdutoMapper;
 import com.lucasgfbatista.AgilStore.repository.ProdutoRepository;
+import com.lucasgfbatista.AgilStore.util.ProdutoJsonUtil;
 import org.springframework.stereotype.Service;
 
 import java.lang.module.ResolutionException;
@@ -38,7 +39,7 @@ public class ProdutoService {
         Produto produto = produtoMapper.toEntity(dto);
 
         produtoRepository.save(produto);
-
+        salvarBackupJson();
         return produtoMapper.toResponse(produto);
     }
 
@@ -49,7 +50,7 @@ public class ProdutoService {
                 .toList();
     }
 
-    public ProdutoResponseDTO atualiarProduto(Long id, ProdutoRequestDTO dto) {
+    public ProdutoResponseDTO atualizarProduto(Long id, ProdutoRequestDTO dto) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Produto", "id", id)
@@ -61,7 +62,7 @@ public class ProdutoService {
         produto.setCategoria(produtoMapper.toEntity(dto).getCategoria());
 
         produtoRepository.save(produto);
-
+        salvarBackupJson();
         return produtoMapper.toResponse(produto);
 
     }
@@ -71,6 +72,7 @@ public class ProdutoService {
             throw new ResourceNotFoundException("Produto", "id", id);
         }
         produtoRepository.deleteById(id);
+        salvarBackupJson();
     }
 
     public ProdutoResponseDTO buscarProduto(Long id) {
@@ -90,5 +92,10 @@ public class ProdutoService {
                 );
 
         return produtoMapper.toResponse(produto);
+    }
+
+    private void salvarBackupJson(){
+        List<Produto> todosProdutos = produtoRepository.findAll();
+        ProdutoJsonUtil.salvarEmJson(todosProdutos);
     }
 }
