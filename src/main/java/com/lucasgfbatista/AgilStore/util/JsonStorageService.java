@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface JsonStorageService<T>{
 
-    void slavar(List<T> dados);
+    void salvar(List<T> dados);
 
     List<T> carregar();
 
