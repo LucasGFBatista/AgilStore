@@ -1,13 +1,14 @@
-package com.lucasgfbatista.AgilStore.json;
+package com.lucasgfbatista.AgilStore.util;
 
-import com.lucasgfbatista.AgilStore.util.JsonStorageService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.function.Function;
 
+@Order(1)
 public class JsonToDatabaseInitializer<T, E> implements ApplicationRunner {
 
     private final JsonStorageService<T> jsonStorageService;
