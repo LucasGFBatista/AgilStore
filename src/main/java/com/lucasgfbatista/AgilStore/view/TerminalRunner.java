@@ -7,6 +7,7 @@ import com.lucasgfbatista.AgilStore.dto.ProdutoResponseDTO;
 import com.lucasgfbatista.AgilStore.service.CategoriaService;
 import com.lucasgfbatista.AgilStore.service.ProdutoService;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 @Component
+@Order(2)
 public class TerminalRunner implements CommandLineRunner {
 
     private final ProdutoService produtoService;
