@@ -1,13 +1,16 @@
 package com.lucasgfbatista.AgilStore.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.lucasgfbatista.AgilStore.domain.Produto;
 import com.lucasgfbatista.AgilStore.dto.ProdutoRequestDTO;
 import com.lucasgfbatista.AgilStore.dto.ProdutoResponseDTO;
 import com.lucasgfbatista.AgilStore.exception.ResourceNotFoundException;
 import com.lucasgfbatista.AgilStore.mapper.ProdutoMapper;
 import com.lucasgfbatista.AgilStore.repository.ProdutoRepository;
-import com.lucasgfbatista.AgilStore.util.JsonUtil;
+import com.lucasgfbatista.AgilStore.util.JsonStorageService;
+import com.lucasgfbatista.AgilStore.util.JsonStorageServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +18,12 @@ import java.util.List;
 public class ProdutoService {
 
     private static final String JSON_PRODUTOS = "json_projeto/produtos.json";
+    private final JsonStorageService<ProdutoResponseDTO> produtoJsonStorage
+            = new JsonStorageServiceImpl<>(
+            JSON_PRODUTOS,
+            new TypeReference<List<ProdutoResponseDTO>>() {
+            }
+    );
     private final ProdutoRepository produtoRepository;
     private final ProdutoMapper produtoMapper;
 
@@ -33,7 +42,7 @@ public class ProdutoService {
     - [x] - Buscar por nome
     * */
 
-
+    @Transactional
     public ProdutoResponseDTO criarProduto(ProdutoRequestDTO dto) {
 
         Produto produto = produtoMapper.toEntity(dto);
@@ -50,6 +59,7 @@ public class ProdutoService {
                 .toList();
     }
 
+    @Transactional
     public ProdutoResponseDTO atualizarProduto(Long id, ProdutoRequestDTO dto) {
         Produto produto = produtoRepository.findById(id)
                 .orElseThrow(
@@ -67,6 +77,7 @@ public class ProdutoService {
 
     }
 
+    @Transactional
     public void deletarProduto(Long id) {
         if (!produtoRepository.existsById(id)) {
             throw new ResourceNotFoundException("Produto", "id", id);
@@ -94,8 +105,8 @@ public class ProdutoService {
         return produtoMapper.toResponse(produto);
     }
 
-    private void salvarBackupJson(){
+    private void salvarBackupJson() {
         List<ProdutoResponseDTO> produtos = listarTodosProdutos();
-        JsonUtil.salvar(JSON_PRODUTOS, produtos );
+        produtoJsonStorage.salvar(produtos);
     }
 }
