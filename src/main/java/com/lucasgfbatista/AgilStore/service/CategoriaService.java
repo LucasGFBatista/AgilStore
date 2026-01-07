@@ -1,12 +1,14 @@
 package com.lucasgfbatista.AgilStore.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.lucasgfbatista.AgilStore.domain.Categoria;
 import com.lucasgfbatista.AgilStore.dto.CategoriaRequestDTO;
 import com.lucasgfbatista.AgilStore.dto.CategoriaResponseDTO;
 import com.lucasgfbatista.AgilStore.exception.ResourceNotFoundException;
 import com.lucasgfbatista.AgilStore.mapper.CategoriaMapper;
 import com.lucasgfbatista.AgilStore.repository.CategoriaRepository;
-import com.lucasgfbatista.AgilStore.util.JsonUtil;
+import com.lucasgfbatista.AgilStore.util.JsonStorageService;
+import com.lucasgfbatista.AgilStore.util.JsonStorageServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,10 @@ import java.util.List;
 public class CategoriaService {
 
     private static final String JSON_CATEGORIAS = "json_projeto/categorias.json";
+    private final JsonStorageService<CategoriaResponseDTO> categoriaJsonStorage = new JsonStorageServiceImpl<>(
+            JSON_CATEGORIAS, new TypeReference<List<CategoriaResponseDTO>>() {
+    }
+    );
     private final CategoriaRepository categoriaRepository;
     private final CategoriaMapper categoriaMapper;
 
@@ -39,7 +45,7 @@ public class CategoriaService {
         Categoria categoria = categoriaMapper.toEntity(dto);
 
         categoriaRepository.save(categoria);
-
+        salvarCategoriasJson();
         return categoriaMapper.toResponse(categoria);
     }
 
@@ -97,7 +103,7 @@ public class CategoriaService {
 
     private void salvarCategoriasJson() {
         List<CategoriaResponseDTO> categorias = listarTodosCategorias();
-        JsonUtil.salvar(JSON_CATEGORIAS, categorias);
+        categoriaJsonStorage.salvar(categorias);
     }
 
 }
