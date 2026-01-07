@@ -1,0 +1,13 @@
+[ {
+  "id" : 1,
+  "nome" : "Redmi Note 12 ",
+  "categoriaId" : 1,
+  "qntEstoque" : 5,
+  "preco" : 2500.00
+}, {
+  "id" : 3,
+  "nome" : "AirDrop",
+  "categoriaId" : 4,
+  "qntEstoque" : 50,
+  "preco" : 175.00
+} ]

@@ -1,0 +1,22 @@
+[ {
+  "id" : 1,
+  "nome" : "Smartphones"
+}, {
+  "id" : 2,
+  "nome" : "Laptops"
+}, {
+  "id" : 3,
+  "nome" : "Acessórios"
+}, {
+  "id" : 4,
+  "nome" : "Fones de ouvido"
+}, {
+  "id" : 5,
+  "nome" : "Carregadores"
+}, {
+  "id" : 6,
+  "nome" : "Cabo USB"
+}, {
+  "id" : 7,
+  "nome" : "Armazenamentos"
+} ]
